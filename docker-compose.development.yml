@@ -10,8 +10,3 @@ services:
       - "8001:80"
     volumes:
       - ./application:/app
-  postgres:
-    environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
