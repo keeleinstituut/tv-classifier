@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ClassifierValueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/v1/classifier-values', [ClassifierValueController::class, 'index']);
+Route::get('/v1/classifier-values/{id}', [ClassifierValueController::class, 'get']);

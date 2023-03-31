@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\ClassifierValue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ClassifierValueTest extends TestCase
@@ -27,5 +28,19 @@ class ClassifierValueTest extends TestCase
         $createdModel->delete();
         $this->assertModelExists($createdModel);
         $this->assertNotEmpty($createdModel->deleted_at);
+    }
+
+    public function test_return_list(): void
+    {
+        ClassifierValue::factory()->count(10)->create();
+        $response = $this->json('GET', '/api/v1/classifier-values');
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_one(): void
+    {
+        $classifierValue = ClassifierValue::factory()->create();
+        $response = $this->json('GET', '/api/v1/classifier-values/' . $classifierValue->id);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }
