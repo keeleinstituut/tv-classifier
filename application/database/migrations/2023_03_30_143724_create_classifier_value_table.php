@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ClassifierValueType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('classifier_values', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
             $table->timestamps();
             $table->softDeletesTz();
-            $table->string('type');
+            $table->enum('type', ClassifierValueType::values());
             $table->string('value');
             $table->string('name');
             $table->json('meta')->nullable();
