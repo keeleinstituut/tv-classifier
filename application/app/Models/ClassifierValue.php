@@ -52,4 +52,5 @@ class ClassifierValue extends Model
         'type' => ClassifierValueType::class,
         'meta' => 'array'
     ];
+
 }
