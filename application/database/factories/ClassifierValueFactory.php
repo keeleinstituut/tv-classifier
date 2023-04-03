@@ -27,6 +27,14 @@ class ClassifierValueFactory extends Factory
         ];
     }
 
+    public function withType(ClassifierValueType $type): Factory
+    {
+        return $this->state(fn () => [
+            'type' => $type,
+            'meta' => $this->getMetaByType($type)
+        ]);
+    }
+
     private function getMetaByType(ClassifierValueType $type): array {
         return match ($type) {
             ClassifierValueType::Language => [
