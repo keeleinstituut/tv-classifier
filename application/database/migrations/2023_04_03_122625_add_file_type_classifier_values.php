@@ -21,9 +21,6 @@ return new class extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         DB::table('classifier_values')
