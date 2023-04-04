@@ -5,9 +5,13 @@ namespace App\Http\Resources;
 use App\DataTransferObjects\Meta\LanguageMetaData;
 use App\DataTransferObjects\Meta\ProjectTypeMetaData;
 use App\Enums\ClassifierValueType;
+use App\Models\ClassifierValue;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin ClassifierValue
+ */
 class ClassifierValueResource extends JsonResource
 {
     /**
