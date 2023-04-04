@@ -83,6 +83,14 @@ class ClassifierValueTest extends TestCase
         }
     }
 
+    public function test_receiving_list_of_classifier_values_with_wrong_type()
+    {
+        ClassifierValue::factory()->count(10)->create();
+
+        $response = $this->json('GET', "/api/v1/classifier-values?type=somerandomstring");
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
     public function test_receiving_classifier_value(): void
     {
         $classifierValue = ClassifierValue::factory()->create();
