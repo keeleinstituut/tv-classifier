@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Enums\ClassifierValueType;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Database\Factories\ClassifierValueFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $value
  * @property string $name
  * @property array|null $meta
+ *
  * @method static ClassifierValueFactory factory($count = null, $state = [])
  * @method static Builder|ClassifierValue newModelQuery()
  * @method static Builder|ClassifierValue newQuery()
@@ -38,6 +39,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ClassifierValue whereValue($value)
  * @method static Builder|ClassifierValue withTrashed()
  * @method static Builder|ClassifierValue withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class ClassifierValue extends Model

@@ -11,7 +11,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ClassifierValueController extends Controller
 {
-    public function __construct(private readonly ClassifierValueService $classifierValueService) {}
+    public function __construct(private readonly ClassifierValueService $classifierValueService)
+    {
+    }
 
     public function index(GetClassifierValuesRequest $request): AnonymousResourceCollection
     {

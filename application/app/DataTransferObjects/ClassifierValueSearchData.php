@@ -6,5 +6,7 @@ use App\Enums\ClassifierValueType;
 
 readonly class ClassifierValueSearchData
 {
-    public function __construct(public ?ClassifierValueType $type) {}
+    public function __construct(public ?ClassifierValueType $type)
+    {
+    }
 }

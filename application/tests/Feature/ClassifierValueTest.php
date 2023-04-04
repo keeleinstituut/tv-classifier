@@ -46,12 +46,12 @@ class ClassifierValueTest extends TestCase
         $response->assertJsonCount($totalCount, 'data');
 
         $responseContentParts = $classifierValues->map(
-            fn(ClassifierValue $classifierValue) => [
+            fn (ClassifierValue $classifierValue) => [
                 'id' => $classifierValue->id,
                 'name' => $classifierValue->name,
                 'value' => $classifierValue->value,
                 'type' => $classifierValue->type->value,
-                'meta' => $classifierValue->meta
+                'meta' => $classifierValue->meta,
             ]
         )->toArray();
 
@@ -87,7 +87,7 @@ class ClassifierValueTest extends TestCase
     {
         ClassifierValue::factory()->count(10)->create();
 
-        $response = $this->json('GET', "/api/v1/classifier-values?type=somerandomstring");
+        $response = $this->json('GET', '/api/v1/classifier-values?type=somerandomstring');
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -101,7 +101,7 @@ class ClassifierValueTest extends TestCase
             'name' => $classifierValue->name,
             'value' => $classifierValue->value,
             'type' => $classifierValue->type->value,
-            'meta' => $classifierValue->meta
+            'meta' => $classifierValue->meta,
         ]);
     }
 

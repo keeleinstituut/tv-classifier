@@ -11,8 +11,7 @@ class ClassifierValueService
 {
     public function search(ClassifierValueSearchData $searchData): Collection
     {
-        return ClassifierValue::when($searchData->type, fn(Builder $query) =>
-                $query->where('type', '=', $searchData->type->value)
-            )->orderBy('type')->orderBy('name')->get();
+        return ClassifierValue::when($searchData->type, fn (Builder $query) => $query->where('type', '=', $searchData->type->value)
+        )->orderBy('type')->orderBy('name')->get();
     }
 }

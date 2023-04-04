@@ -14,7 +14,7 @@ class GetClassifierValuesRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'type' => ['string', 'in:' . implode(',', ClassifierValueType::values())],
+            'type' => ['string', 'in:'.implode(',', ClassifierValueType::values())],
         ];
     }
 }

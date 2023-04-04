@@ -14,7 +14,7 @@ readonly class LanguageMetaData
     public function toArray(): array
     {
         return [
-            'iso3_code' => $this->iso3Code
+            'iso3_code' => $this->iso3Code,
         ];
     }
 }

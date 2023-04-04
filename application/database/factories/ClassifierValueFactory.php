@@ -32,7 +32,7 @@ class ClassifierValueFactory extends Factory
     {
         return $this->state(fn () => [
             'type' => $type,
-            'meta' => $this->getMetaByType($type)
+            'meta' => $this->getMetaByType($type),
         ]);
     }
 
@@ -49,5 +49,4 @@ class ClassifierValueFactory extends Factory
             default => [],
         };
     }
-
 }
