@@ -13,12 +13,11 @@ class ClassifierValue extends Model
     use HasFactory, SoftDeletes, HasUuid;
 
     protected $fillable = [
-        'name', 'value', 'type', 'meta'
+        'name', 'value', 'type', 'meta',
     ];
 
     protected $casts = [
         'type' => ClassifierValueType::class,
-        'meta' => 'array'
+        'meta' => 'array',
     ];
-
 }
