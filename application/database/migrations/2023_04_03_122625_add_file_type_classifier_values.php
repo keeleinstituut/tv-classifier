@@ -2,8 +2,6 @@
 
 use App\Enums\ClassifierValueType;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -15,7 +13,7 @@ return new class extends Migration
                     ...$classifierValueData,
                     'type' => ClassifierValueType::FileType->value,
                     'meta' => '[]',
-                    'created_at' => DB::raw('NOW()')
+                    'created_at' => DB::raw('NOW()'),
                 ];
             }, $this->getData())
         );
