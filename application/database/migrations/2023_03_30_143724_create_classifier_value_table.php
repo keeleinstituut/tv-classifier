@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('classifier_values', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
-            $table->timestamps();
+            $table->timestampsTz();
             $table->softDeletesTz();
             $table->enum('type', ClassifierValueType::values());
             $table->string('value');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classifier_value');
+        Schema::dropIfExists('classifier_values');
     }
 };

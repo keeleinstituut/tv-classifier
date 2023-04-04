@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\ClassifierValueController;
 use Illuminate\Support\Facades\Route;
 

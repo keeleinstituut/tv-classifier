@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ClassifierValueType;
-use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Database\Factories\ClassifierValueFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,15 +42,14 @@ use Illuminate\Support\Carbon;
  */
 class ClassifierValue extends Model
 {
-    use HasFactory, SoftDeletes, Uuid;
+    use HasFactory, SoftDeletes, HasUuids;
 
     protected $fillable = [
-        'name', 'value', 'type', 'meta'
+        'name', 'value', 'type', 'meta',
     ];
 
     protected $casts = [
         'type' => ClassifierValueType::class,
-        'meta' => 'array'
+        'meta' => 'array',
     ];
-
 }

@@ -19,11 +19,12 @@ class ClassifierValueFactory extends Factory
     public function definition(): array
     {
         $type = $this->faker->randomElement(ClassifierValueType::cases());
+
         return [
             'name' => Str::random(10),
             'value' => Str::random(10),
             'type' => $type,
-            'meta' => $this->getMetaByType($type)
+            'meta' => $this->getMetaByType($type),
         ];
     }
 
@@ -35,16 +36,18 @@ class ClassifierValueFactory extends Factory
         ]);
     }
 
-    private function getMetaByType(ClassifierValueType $type): array {
+    private function getMetaByType(ClassifierValueType $type): array
+    {
         return match ($type) {
             ClassifierValueType::Language => [
-                'iso3_code' => Str::random(3)
+                'iso3_code' => Str::random(3),
             ],
             ClassifierValueType::ProjectType => [
                 'display_start_time' => fake()->boolean,
-                'workflow_id' => Str::random()
+                'workflow_id' => Str::random(),
             ],
             default => [],
         };
     }
+
 }
