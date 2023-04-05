@@ -3,8 +3,7 @@
 use App\Enums\ClassifierValueType;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,8 +14,8 @@ return new class extends Migration
                 return [
                     ...$classifierValueData,
                     'type' => ClassifierValueType::TranslationDomain->value,
-                    'meta' => '[]',
                     'created_at' => DB::raw('NOW()'),
+                    'updated_at' => DB::raw('NOW()'),
                 ];
             }, $this->getData())
         );
