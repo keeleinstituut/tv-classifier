@@ -30,7 +30,7 @@ class ClassifierValueFactory extends Factory
 
     public function withType(ClassifierValueType $type): Factory
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'type' => $type,
             'meta' => $this->getMetaByType($type),
         ]);
