@@ -3,8 +3,7 @@
 use App\Enums\ClassifierValueType;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         DB::table('classifier_values')->insert(
@@ -12,8 +11,8 @@ return new class extends Migration
                 return [
                     ...$classifierValueData,
                     'type' => ClassifierValueType::FileType->value,
-                    'meta' => '[]',
                     'created_at' => DB::raw('NOW()'),
+                    'updated_at' => DB::raw('NOW()'),
                 ];
             }, $this->getData())
         );
