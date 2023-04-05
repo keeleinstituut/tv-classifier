@@ -25,7 +25,7 @@ class ClassifierValueResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'value' => $this->value,
-            'type' => $this->type->value,
+            'type' => $this->type,
             'meta' => $this->getMetaData($this),
         ];
     }
