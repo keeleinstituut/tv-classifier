@@ -1,8 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "keeleinstituut/tv-classifier",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Classifier service for Tõlkevärav.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
