@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClassifierValueController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,3 +13,6 @@
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::get('/v1/classifier-values', [ClassifierValueController::class, 'index']);
+Route::get('/v1/classifier-values/{id}', [ClassifierValueController::class, 'get']);

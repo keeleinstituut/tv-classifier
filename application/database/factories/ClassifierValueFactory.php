@@ -28,7 +28,15 @@ class ClassifierValueFactory extends Factory
         ];
     }
 
-    private function getMetaByType(ClassifierValueType $type): array
+    public function withType(ClassifierValueType $type): Factory
+    {
+        return $this->state(fn () => [
+            'type' => $type,
+            'meta' => $this->getMetaByType($type),
+        ]);
+    }
+
+    private function getMetaByType(ClassifierValueType $type): ?array
     {
         return match ($type) {
             ClassifierValueType::Language => [
@@ -38,7 +46,7 @@ class ClassifierValueFactory extends Factory
                 'display_start_time' => fake()->boolean,
                 'workflow_id' => Str::random(),
             ],
-            default => [],
+            default => null,
         };
     }
 }
