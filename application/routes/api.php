@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/v1/classifier-values', [ClassifierValueController::class, 'index']);
-Route::get('/v1/classifier-values/{id}', [ClassifierValueController::class, 'get']);
+Route::get('/classifier-values', [ClassifierValueController::class, 'index']);
+Route::get('/classifier-values/{id}', [ClassifierValueController::class, 'get']);
