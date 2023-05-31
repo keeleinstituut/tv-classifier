@@ -30,7 +30,7 @@ class ClassifierValueResource extends JsonResource
         ];
     }
 
-    private function getMetaData(ClassifierValueResource $classifierValue): array
+    protected function getMetaData(ClassifierValueResource $classifierValue): array
     {
         return match ($classifierValue->type) {
             ClassifierValueType::Language => (new LanguageMetaData($classifierValue->meta))->toArray(),

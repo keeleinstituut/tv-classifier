@@ -1,7 +1,5 @@
 <?php
 
-use Amqp\Events\MessageEventFactory;
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -25,8 +23,8 @@ return [
         'exchanges' => [
             [
                 'exchange' => 'classifier-value',
-                'type' => 'fanout'
-            ]
+                'type' => 'fanout',
+            ],
         ],
     ],
 ];

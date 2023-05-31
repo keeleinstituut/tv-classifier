@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use Amqp\Publisher;
 use App\Models\ClassifierValue;
+use SyncTools\AmqpPublisher;
 
 class ClassifierValueObserver
 {
@@ -12,7 +12,7 @@ class ClassifierValueObserver
      */
     public bool $afterCommit = true;
 
-    public function __construct(private readonly Publisher $publisher)
+    public function __construct(private readonly AmqpPublisher $publisher)
     {
     }
 
@@ -24,14 +24,18 @@ class ClassifierValueObserver
         $this->publishEvent($classifierValue, 'classifier-value.saved');
     }
 
+    public function deleted(ClassifierValue $classifierValue): void
+    {
+        $this->publishEvent($classifierValue, 'classifier-value.saved');
+    }
+
     /**
      * Handle the ClassifierValue "deleted" event.
      */
-    public function deleted(ClassifierValue $classifierValue): void
+    public function forceDeleted(ClassifierValue $classifierValue): void
     {
         $this->publishEvent($classifierValue, 'classifier-value.deleted');
     }
-
 
     private function publishEvent(ClassifierValue $classifierValue, string $routingKey = ''): void
     {

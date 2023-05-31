@@ -4,22 +4,12 @@ services:
   app:
     depends_on:
       - postgres
-      - rabbitmq
 
   postgres:
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
-
-  rabbitmq:
-    image: rabbitmq:latest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest

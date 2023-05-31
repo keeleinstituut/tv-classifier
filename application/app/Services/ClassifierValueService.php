@@ -13,7 +13,7 @@ class ClassifierValueService
     {
         return ClassifierValue::when(
             $searchData->type,
-            fn(Builder $query) => $query->where('type', '=', $searchData->type->value)
+            fn (Builder $query) => $query->where('type', '=', $searchData->type->value)
         )->orderBy('type')->orderBy('name')->get();
     }
 }

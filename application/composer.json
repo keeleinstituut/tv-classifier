@@ -13,7 +13,8 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "keeleinstituut/tv-common-laravel-amqp": "0.0.3"
+        "keeleinstituut/tv-common-laravel-amqp": "0.0.10",
+        "keeleinstituut/tv-common-laravel-security": "0.0.12"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
@@ -70,6 +71,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/keeleinstituut/tv-common-laravel-amqp"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/keeleinstituut/tv-common-laravel-security"
         }
     ],
     "minimum-stability": "dev",

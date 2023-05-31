@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClassifierValueController;
+use App\Http\Controllers\ClassifierValueSyncController;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/classifier-values', [ClassifierValueController::class, 'index']);
-Route::get('/classifier-values/{id}', [ClassifierValueController::class, 'get']);
+Route::get('/classifier-values/{id}', [ClassifierValueController::class, 'show'])->whereUuid('id');
+
+Route::withoutMiddleware(['auth:api', ThrottleRequests::class])->group(function () {
+    Route::get('/sync/classifier-values', [ClassifierValueSyncController::class, 'index']);
+    Route::get('/sync/classifier-values/{id}', [ClassifierValueSyncController::class, 'show'])->whereUuid('id');
+});

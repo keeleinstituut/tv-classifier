@@ -26,7 +26,7 @@ class ClassifierValueController extends Controller
         return ClassifierValueResource::collection($classifierValues);
     }
 
-    public function get(string $id): ClassifierValueResource
+    public function show(string $id): ClassifierValueResource
     {
         return new ClassifierValueResource(ClassifierValue::findOrFail($id));
     }
