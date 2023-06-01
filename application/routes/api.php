@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ClassifierValueController;
 use App\Http\Controllers\ClassifierValueSyncController;
-use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\Route;
 
 /*
