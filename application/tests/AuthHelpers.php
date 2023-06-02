@@ -17,8 +17,8 @@ trait AuthHelpers
     {
         $key = env('KEYCLOAK_REALM_PRIVATE_KEY');
 
-        return "-----BEGIN PRIVATE KEY-----\n" .
-            wordwrap($key, 64, "\n", true) .
+        return "-----BEGIN PRIVATE KEY-----\n".
+            wordwrap($key, 64, "\n", true).
             "\n-----END PRIVATE KEY-----";
     }
 }

@@ -45,7 +45,7 @@ class ClassifierValueTest extends TestCase
         $response->assertJsonCount(ClassifierValue::query()->count(), 'data');
 
         $responseContentParts = $classifierValues->map(
-            fn(ClassifierValue $classifierValue) => [
+            fn (ClassifierValue $classifierValue) => [
                 'id' => $classifierValue->id,
                 'name' => $classifierValue->name,
                 'value' => $classifierValue->value,

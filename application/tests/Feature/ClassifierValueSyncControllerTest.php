@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Http\Controllers\ClassifierValueSyncController;
 use App\Models\ClassifierValue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +22,7 @@ class ClassifierValueSyncControllerTest extends TestCase
             ->assertStatus(Response::HTTP_OK);
 
         $classifierValues->map(
-            fn(ClassifierValue $classifierValue) => $response->assertJsonFragment(
+            fn (ClassifierValue $classifierValue) => $response->assertJsonFragment(
                 $this->createClassifierValueRepresentation($classifierValue)
             )
         );
@@ -36,7 +35,7 @@ class ClassifierValueSyncControllerTest extends TestCase
             ->assertStatus(Response::HTTP_OK);
 
         $classifierValues->map(
-            fn(ClassifierValue $classifierValue) => $response->assertJsonFragment(
+            fn (ClassifierValue $classifierValue) => $response->assertJsonFragment(
                 $this->createClassifierValueRepresentation($classifierValue)
             )
         );
@@ -98,7 +97,7 @@ class ClassifierValueSyncControllerTest extends TestCase
     {
         if (filled($token)) {
             $this->withHeaders([
-                'Authorization' => 'Bearer ' . $token,
+                'Authorization' => 'Bearer '.$token,
             ]);
         }
 
@@ -109,7 +108,7 @@ class ClassifierValueSyncControllerTest extends TestCase
     {
         if (filled($token)) {
             $this->withHeaders([
-                'Authorization' => 'Bearer ' . $token,
+                'Authorization' => 'Bearer '.$token,
             ]);
         }
 
@@ -119,7 +118,7 @@ class ClassifierValueSyncControllerTest extends TestCase
     public function generateServiceAccountAccessToken(?string $role = null): string
     {
         return $this->createJwt([
-            'iss' => config('keycloak.base_url') . '/realms/' . config('keycloak.realm'),
+            'iss' => config('keycloak.base_url').'/realms/'.config('keycloak.realm'),
             'realm_access' => [
                 'roles' => filled($role) ? [$role] : [config('keycloak.service_account_sync_role')],
             ],
