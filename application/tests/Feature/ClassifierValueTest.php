@@ -37,16 +37,15 @@ class ClassifierValueTest extends TestCase
      */
     public function test_receiving_list_of_classifier_values(): void
     {
-        $totalCount = 100;
-        $classifierValues = ClassifierValue::factory()->count($totalCount)->create();
+        $classifierValues = ClassifierValue::factory(100)->create();
         $trashedClassifierValue = ClassifierValue::factory()->trashed()->createOne();
         $response = $this->json('GET', '/api/classifier-values');
 
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertJsonCount($totalCount, 'data');
+        $response->assertJsonCount(ClassifierValue::query()->count(), 'data');
 
         $responseContentParts = $classifierValues->map(
-            fn (ClassifierValue $classifierValue) => [
+            fn(ClassifierValue $classifierValue) => [
                 'id' => $classifierValue->id,
                 'name' => $classifierValue->name,
                 'value' => $classifierValue->value,
@@ -64,15 +63,18 @@ class ClassifierValueTest extends TestCase
 
     public function test_receiving_list_of_classifier_values_with_specific_type()
     {
-        $eachTypeCount = 10;
         foreach (ClassifierValueType::cases() as $classifierValueType) {
-            ClassifierValue::factory()->withType($classifierValueType)->count($eachTypeCount)->create();
+            ClassifierValue::factory(10)->withType($classifierValueType)->create();
         }
 
         foreach (ClassifierValueType::cases() as $classifierValueType) {
-            $response = $this->json('GET', "/api/classifier-values?type=$classifierValueType->value");
-            $response->assertStatus(Response::HTTP_OK);
-            $response->assertJsonCount($eachTypeCount, 'data');
+            $classifierValuesCount = ClassifierValue::query()->where('type', '=', $classifierValueType->value)
+                ->count();
+
+            $response = $this->json('GET', "/api/classifier-values?type=$classifierValueType->value")
+                ->assertStatus(Response::HTTP_OK)
+                ->assertJsonCount($classifierValuesCount, 'data');
+
             foreach (ClassifierValueType::cases() as $anotherClassifierValueType) {
                 if ($anotherClassifierValueType === $classifierValueType) {
                     continue;
@@ -85,30 +87,28 @@ class ClassifierValueTest extends TestCase
 
     public function test_receiving_list_of_classifier_values_with_wrong_type()
     {
-        ClassifierValue::factory()->count(10)->create();
-
-        $response = $this->json('GET', '/api/classifier-values?type=somerandomstring');
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $this->json('GET', '/api/classifier-values?type=somerandomstring')
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_receiving_classifier_value(): void
     {
         $classifierValue = ClassifierValue::factory()->create();
-        $response = $this->json('GET', "/api/classifier-values/$classifierValue->id");
-        $response->assertStatus(Response::HTTP_OK);
-        $response->assertJsonFragment([
-            'id' => $classifierValue->id,
-            'name' => $classifierValue->name,
-            'value' => $classifierValue->value,
-            'type' => $classifierValue->type->value,
-            'meta' => $classifierValue->meta ?: [],
-        ]);
+        $this->json('GET', "/api/classifier-values/$classifierValue->id")
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonFragment([
+                'id' => $classifierValue->id,
+                'name' => $classifierValue->name,
+                'value' => $classifierValue->value,
+                'type' => $classifierValue->type->value,
+                'meta' => $classifierValue->meta ?: [],
+            ]);
     }
 
     public function test_receiving_trashed_classifier_value(): void
     {
         $classifierValue = ClassifierValue::factory()->trashed()->create();
-        $response = $this->json('GET', "/api/classifier-values/$classifierValue->id");
-        $response->assertStatus(Response::HTTP_NOT_FOUND);
+        $this->json('GET', "/api/classifier-values/$classifierValue->id")
+            ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

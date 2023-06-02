@@ -26,15 +26,15 @@ class ClassifierValueResource extends JsonResource
             'name' => $this->name,
             'value' => $this->value,
             'type' => $this->type,
-            'meta' => $this->getMetaData($this),
+            'meta' => $this->getMetaData(),
         ];
     }
 
-    protected function getMetaData(ClassifierValueResource $classifierValue): array
+    protected function getMetaData(): array
     {
-        return match ($classifierValue->type) {
-            ClassifierValueType::Language => (new LanguageMetaData($classifierValue->meta))->toArray(),
-            ClassifierValueType::ProjectType => (new ProjectTypeMetaData($classifierValue->meta))->toArray(),
+        return match ($this->type) {
+            ClassifierValueType::Language => (new LanguageMetaData($this->meta))->toArray(),
+            ClassifierValueType::ProjectType => (new ProjectTypeMetaData($this->meta))->toArray(),
             default => []
         };
     }

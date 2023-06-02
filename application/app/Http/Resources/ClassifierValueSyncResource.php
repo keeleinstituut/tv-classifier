@@ -22,7 +22,7 @@ class ClassifierValueSyncResource extends ClassifierValueResource
             'name' => $this->name,
             'value' => $this->value,
             'type' => $this->type,
-            'meta' => $this->getMetaData($this),
+            'meta' => $this->getMetaData(),
             'deleted_at' => $this->deleted_at,
         ];
     }
