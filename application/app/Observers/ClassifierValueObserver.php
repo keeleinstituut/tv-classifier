@@ -37,7 +37,7 @@ class ClassifierValueObserver
         $this->publishEvent($classifierValue, 'classifier-value.deleted');
     }
 
-    private function publishEvent(ClassifierValue $classifierValue, string $routingKey = ''): void
+    private function publishEvent(ClassifierValue $classifierValue, string $routingKey): void
     {
         $this->publisher->publish(
             ['id' => $classifierValue->id],

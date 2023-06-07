@@ -18,12 +18,8 @@ class ClassifierValueSyncResource extends ClassifierValueResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'value' => $this->value,
-            'type' => $this->type,
-            'meta' => $this->getMetaData(),
-            'deleted_at' => $this->deleted_at,
+            ...$this->resource->toArray(),
+            'meta' => $this->getMetaData()
         ];
     }
 }
