@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::prefix('/classifier-values')
+    ->controller(ClassifierValueController::class)
+    ->whereUuid('id')
+    ->group(function (): void {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });
 
-Route::get('/classifier-values', [ClassifierValueController::class, 'index']);
-Route::get('/classifier-values/{id}', [ClassifierValueController::class, 'show'])->whereUuid('id');
-
-Route::withoutMiddleware(['throttle:api'])->group(function () {
-    Route::get('/sync/classifier-values', [ClassifierValueSyncController::class, 'index']);
-    Route::get('/sync/classifier-values/{id}', [ClassifierValueSyncController::class, 'show'])->whereUuid('id');
-});
+Route::prefix('/sync/classifier-values')
+    ->controller(ClassifierValueSyncController::class)
+    ->whereUuid('id')
+    ->withoutMiddleware(['throttle:api', 'auth:api'])
+    ->group(function (): void {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });

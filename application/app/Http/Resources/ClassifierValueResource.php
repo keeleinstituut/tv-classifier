@@ -14,18 +14,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class ClassifierValueResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'value' => $this->value,
-            'type' => $this->type,
+            ...$this->only([
+                'id',
+                'name',
+                'value',
+                'type',
+            ]),
             'meta' => $this->getMetaData(),
         ];
     }

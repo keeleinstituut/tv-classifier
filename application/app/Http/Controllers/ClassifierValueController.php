@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTransferObjects\ClassifierValueSearchData;
-use App\Http\Requests\GetClassifierValuesRequest;
+use App\Http\Requests\ClassifierValueListRequest;
 use App\Http\Resources\ClassifierValueResource;
 use App\Models\ClassifierValue;
-use App\Services\ClassifierValueService;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ClassifierValueController extends Controller
 {
-    public function __construct(private readonly ClassifierValueService $classifierValueService)
+    public function index(ClassifierValueListRequest $request): ResourceCollection
     {
-    }
+        $classifierValuesQuery = ClassifierValue::query()
+            ->orderBy('type')
+            ->orderBy('name');
 
-    public function index(GetClassifierValuesRequest $request): AnonymousResourceCollection
-    {
-        $classifierValues = $this->classifierValueService->search(
-            new ClassifierValueSearchData(
-                $request->getType()
-            )
+        if ($type = $request->validated('type')) {
+            $classifierValuesQuery->where('type', $type);
+        }
+
+        return ClassifierValueResource::collection(
+            $classifierValuesQuery->get()
         );
-
-        return ClassifierValueResource::collection($classifierValues);
     }
 
     public function show(string $id): ClassifierValueResource
     {
-        return new ClassifierValueResource(ClassifierValue::findOrFail($id));
+        return new ClassifierValueResource(
+            ClassifierValue::query()->findOrFail($id)
+        );
     }
 }
