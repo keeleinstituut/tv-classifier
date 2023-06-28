@@ -8,7 +8,7 @@ use OpenApi\Attributes as OA;
 
 #[OA\OpenApi(security: [['WebClientBearerJwt' => []]])]
 #[OA\Server(
-    url: 'https://api.dev.tolkevarav.eki.ee/classifier/api/v1', // FIXME: Confirm correct URL
+    url: 'https://api.dev.tolkevarav.eki.ee/classifier/api/v1',
     description: 'Development Server’s Classifier Service API Root'
 )]
 #[OA\Info(
