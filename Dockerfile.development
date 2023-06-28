@@ -1,6 +1,8 @@
 FROM composer:latest as composer
 FROM php:8.2.1-alpine3.17 as runtime
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 ENV APP_ROOT /app
 
 RUN apk add libpq-dev libsodium-dev
