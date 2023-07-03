@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\OpenApiHelpers as OAH;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use OpenApi\Attributes as OA;
 
 #[OA\OpenApi(security: [['WebClientBearerJwt' => []]])]
-#[OA\Server(
-    url: 'https://api.dev.tolkevarav.eki.ee/classifier/api/v1',
-    description: 'Development Server’s Classifier Service API Root'
-)]
+#[OAH\ApiServer]
 #[OA\Info(
     version: '0.0.1',
     title: 'Tõlkevärav Classifier Service API',
