@@ -5,7 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.development
+    entrypoint: sleep infinity
     ports:
-      - "8001:80"
+      - "8002:80"
     volumes:
       - ./application:/app
