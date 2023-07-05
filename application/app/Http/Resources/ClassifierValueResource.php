@@ -14,27 +14,24 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class ClassifierValueResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'value' => $this->value,
-            'type' => $this->type,
-            'meta' => $this->getMetaData($this),
+            ...$this->only([
+                'id',
+                'name',
+                'value',
+                'type',
+            ]),
+            'meta' => $this->getMetaData(),
         ];
     }
 
-    private function getMetaData(ClassifierValueResource $classifierValue): array
+    protected function getMetaData(): array
     {
-        return match ($classifierValue->type) {
-            ClassifierValueType::Language => (new LanguageMetaData($classifierValue->meta))->toArray(),
-            ClassifierValueType::ProjectType => (new ProjectTypeMetaData($classifierValue->meta))->toArray(),
+        return match ($this->type) {
+            ClassifierValueType::Language => (new LanguageMetaData($this->meta))->toArray(),
+            ClassifierValueType::ProjectType => (new ProjectTypeMetaData($this->meta))->toArray(),
             default => []
         };
     }
