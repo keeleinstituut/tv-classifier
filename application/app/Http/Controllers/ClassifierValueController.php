@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTransferObjects\ClassifierValueSearchData;
 use App\Enums\ClassifierValueType;
-use App\Http\Requests\GetClassifierValuesRequest;
+use App\Http\Requests\ClassifierValueListRequest;
 use App\Http\Resources\ClassifierValueResource;
 use App\Models\ClassifierValue;
-use App\Services\ClassifierValueService;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClassifierValueController extends Controller
 {
-    public function __construct(private readonly ClassifierValueService $classifierValueService)
-    {
-    }
-
     #[OA\Get(
         path: '/classifier-values',
         summary: 'List classifier values, optionally filtering by type',
@@ -40,15 +34,19 @@ class ClassifierValueController extends Controller
         )
     )]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Validation errors')]
-    public function index(GetClassifierValuesRequest $request): AnonymousResourceCollection
+    public function index(ClassifierValueListRequest $request): ResourceCollection
     {
-        $classifierValues = $this->classifierValueService->search(
-            new ClassifierValueSearchData(
-                $request->getType()
-            )
-        );
+        $classifierValuesQuery = ClassifierValue::query()
+            ->orderBy('type')
+            ->orderBy('name');
 
-        return ClassifierValueResource::collection($classifierValues);
+        if ($type = $request->validated('type')) {
+            $classifierValuesQuery->where('type', $type);
+        }
+
+        return ClassifierValueResource::collection(
+            $classifierValuesQuery->get()
+        );
     }
 
     #[OA\Get(
@@ -72,8 +70,10 @@ class ClassifierValueController extends Controller
         )
     )]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not found')]
-    public function get(string $id): ClassifierValueResource
+    public function show(string $id): ClassifierValueResource
     {
-        return new ClassifierValueResource(ClassifierValue::findOrFail($id));
+        return new ClassifierValueResource(
+            ClassifierValue::query()->findOrFail($id)
+        );
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassifierValueController;
+use App\Http\Controllers\ClassifierValueSyncController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::prefix('/classifier-values')
+    ->controller(ClassifierValueController::class)
+    ->whereUuid('id')
+    ->group(function (): void {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });
 
-Route::get('/v1/classifier-values', [ClassifierValueController::class, 'index']);
-Route::get('/v1/classifier-values/{id}', [ClassifierValueController::class, 'get']);
+Route::prefix('/sync/classifier-values')
+    ->controller(ClassifierValueSyncController::class)
+    ->whereUuid('id')
+    ->withoutMiddleware(['throttle:api', 'auth:api'])
+    ->group(function (): void {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });
