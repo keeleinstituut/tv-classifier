@@ -5,3 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    environment:
+      - L5_SWAGGER_GENERATE_ALWAYS=true
