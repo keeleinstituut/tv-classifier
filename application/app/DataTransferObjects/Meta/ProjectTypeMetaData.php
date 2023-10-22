@@ -5,30 +5,25 @@ namespace App\DataTransferObjects\Meta;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    required: ['workflow_id', 'display_start_time'],
+    required: ['code'],
     properties: [
-        new OA\Property(property: 'workflow_id', type: 'string'),
-        new OA\Property(property: 'display_start_time', type: 'boolean'),
+        new OA\Property(property: 'code', type: 'string'),
     ],
     type: 'object'
 )]
 readonly class ProjectTypeMetaData
 {
-    public string $workflowId;
-
-    public bool $displayStartTime;
+    public string $code;
 
     public function __construct(array $meta = null)
     {
-        $this->workflowId = $meta['workflow_id'] ?? '';
-        $this->displayStartTime = $meta['display_start_time'] ?? false;
+        $this->code = $meta['code'] ?? '';
     }
 
     public function toArray(): array
     {
         return [
-            'workflow_id' => $this->workflowId,
-            'display_start_time' => $this->displayStartTime,
+            'code' => $this->code,
         ];
     }
 }
