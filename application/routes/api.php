@@ -18,8 +18,8 @@ Route::prefix('/classifier-values')
     ->controller(ClassifierValueController::class)
     ->whereUuid('id')
     ->group(function (): void {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
+        Route::get('/', 'index')->name('classifier.classifier_values.index');
+        Route::get('/{id}', 'show')->name('classifier.classifier_values.show');
     });
 
 Route::prefix('/sync/classifier-values')
@@ -27,6 +27,6 @@ Route::prefix('/sync/classifier-values')
     ->whereUuid('id')
     ->withoutMiddleware(['throttle:api', 'auth:api'])
     ->group(function (): void {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
+        Route::get('/', 'index')->name('classifier.sync.classifier-values.index');
+        Route::get('/{id}', 'show')->name('classifier.sync.classifier-values.show');
     });
