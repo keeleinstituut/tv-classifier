@@ -122,6 +122,9 @@ set -e
 echo "Optimize for loading in runtime variables"
 php artisan optimize
 
+chown -R www-data:www-data ./bootstrap/cache
+chown -R www-data:www-data ./storage
+
 echo "Running migrations"
 php artisan migrate --force
 
