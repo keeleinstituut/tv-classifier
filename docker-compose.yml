@@ -1,9 +1,8 @@
-version: "3.8"
-
 services:
   app:
     depends_on:
       - postgres
+      - rabbitmq
 
   postgres:
     image: postgres:latest
