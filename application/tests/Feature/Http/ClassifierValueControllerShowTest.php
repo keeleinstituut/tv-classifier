@@ -7,6 +7,7 @@ use App\Models\ClassifierValue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Tests\AuthHelpers;
+use Tests\Feature\RepresentationHelpers;
 use Tests\TestCase;
 
 class ClassifierValueControllerShowTest extends TestCase
@@ -19,13 +20,9 @@ class ClassifierValueControllerShowTest extends TestCase
         $this->sendGetRequestWithGivenToken(
             $classifierValue->id,
             AuthHelpers::generateAccessToken()
-        )->assertOk()->assertJsonFragment([
-            'id' => $classifierValue->id,
-            'name' => $classifierValue->name,
-            'value' => $classifierValue->value,
-            'type' => $classifierValue->type->value,
-            'meta' => $classifierValue->meta ?: [],
-        ]);
+        )->assertOk()->assertJsonFragment(
+            RepresentationHelpers::createClassifierValueRepresentation($classifierValue)
+        );
     }
 
     public function test_receiving_trashed_classifier_value(): void
